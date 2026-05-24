@@ -1,0 +1,256 @@
+/* ── Variables ── */
+:root {
+  --color-bg:        #F9F6F0;
+  --color-surface:   #FFFFFF;
+  --color-primary:   #A8C5A0;
+  --color-primary-hover: #8FB387;
+  --color-secondary: #C5B8D6;
+  --color-accent:    #F2B5A0;
+  --color-text:      #3D3D3D;
+  --color-text-soft: #7A7A7A;
+  --color-border:    #E0D9D0;
+  --color-error:     #E07A7A;
+
+  --radius: 12px;
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+}
+
+/* ── Reset base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+}
+
+/* ── Layout centrado ── */
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+/* ── Tarjeta ── */
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 480px;
+}
+
+/* ── Tipografia ── */
+h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  color: var(--color-text);
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: var(--color-text-soft);
+  margin-bottom: 2rem;
+}
+
+/* ── Formulario ── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.2rem;
+}
+
+label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-soft);
+}
+
+input, select {
+  padding: 0.7rem 1rem;
+  border: 1.5px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: var(--color-bg);
+  color: var(--color-text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input:focus, select:focus {
+  border-color: var(--color-primary);
+}
+
+/* ── Botón ── */
+.btn {
+  width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 0.5rem;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: white;
+}
+
+.btn-secondary:hover {
+  opacity: 0.85;
+}
+
+/* ── Error ── */
+.error {
+  color: var(--color-error);
+  font-size: 0.88rem;
+  margin-bottom: 1rem;
+}
+
+/* ── Resultados ── */
+.results-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.result-card {
+  background: var(--color-bg);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  text-align: center;
+  border: 1.5px solid var(--color-border);
+}
+
+.result-card .value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.result-card .unit {
+  font-size: 0.8rem;
+  color: var(--color-text-soft);
+}
+
+.result-card .macro-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-top: 0.3rem;
+}
+
+.perfil-info {
+  background: var(--color-bg);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+  border: 1.5px solid var(--color-border);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.perfil-info span {
+  font-size: 0.88rem;
+  color: var(--color-text-soft);
+}
+
+.perfil-info strong {
+  font-size: 0.88rem;
+  color: var(--color-text);
+}
+
+/* ── Navbar ── */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: var(--color-surface);
+  border-bottom: 1.5px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  z-index: 100;
+  box-shadow: var(--shadow);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--color-primary);
+}
+
+.navbar-links {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.nav-btn {
+  background: none;
+  border: 1.5px solid transparent;
+  border-radius: 8px;
+  padding: 0.4rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--color-text-soft);
+  transition: all 0.2s;
+}
+
+.nav-btn:hover {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.nav-btn.active {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: var(--color-bg);
+}
+
+.nav-btn.logout {
+  color: var(--color-error);
+  border-color: var(--color-error);
+}
+
+.nav-btn.logout:hover {
+  background: #fdf0f0;
+}
+
+/* Espacio para que el contenido no quede debajo del navbar */
+.page {
+  padding-top: 80px;
+}
