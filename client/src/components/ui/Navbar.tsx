@@ -28,6 +28,12 @@ function Navbar() {
         >
           Resultados
         </button>
+        <button
+          className={`nav-btn ${location.pathname === "/recipes" ? "active" : ""}`}
+          onClick={() => navigate("/recipes")}
+        >
+          Recetas
+        </button>
         <button className="nav-btn logout" onClick={handleLogout}>
           Cerrar sesion
         </button>

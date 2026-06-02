@@ -42,3 +42,16 @@ export interface CalculationResult {
   };
   resultado: Macros;
 }
+
+export interface Recipe {
+  id: number;
+  name: string;
+  description: string;
+  calories: number;
+  protein_g: number;
+  fat_g: number;
+  carbs_g: number;
+  goal: "cut" | "bulk" | "recomp";
+  user_id: number | null;
+  created_at: string;
+}

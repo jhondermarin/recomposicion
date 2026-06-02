@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS recipes (
     fat_g           REAL NOT NULL,
     carbs_g         REAL NOT NULL,
     goal            TEXT NOT NULL CHECK (goal IN ('cut', 'bulk', 'recomp')),
+    user_id         INTEGER REFERENCES users(id),
     created_at      TEXT NOT NULL DEFAULT (datetime('now'))
 );
 

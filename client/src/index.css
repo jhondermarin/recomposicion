@@ -1,18 +1,21 @@
 /* ── Variables ── */
 :root {
-  --color-bg:        #F9F6F0;
-  --color-surface:   #FFFFFF;
-  --color-primary:   #A8C5A0;
-  --color-primary-hover: #8FB387;
-  --color-secondary: #C5B8D6;
-  --color-accent:    #F2B5A0;
-  --color-text:      #3D3D3D;
-  --color-text-soft: #7A7A7A;
-  --color-border:    #E0D9D0;
-  --color-error:     #E07A7A;
+  --color-bg:            #0F1117;
+  --color-surface:       #1A1D27;
+  --color-surface-2:     #22263A;
+  --color-primary:       #6C63FF;
+  --color-primary-hover: #5A52E0;
+  --color-secondary:     #FF6584;
+  --color-accent:        #43E97B;
+  --color-accent-2:      #FA8231;
+  --color-text:          #F0F0F5;
+  --color-text-soft:     #8B8FA8;
+  --color-border:        #2E3248;
+  --color-error:         #FF6B6B;
 
-  --radius: 12px;
-  --shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  --radius: 14px;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --glow: 0 0 20px rgba(108, 99, 255, 0.15);
 }
 
 /* ── Reset base ── */
@@ -36,6 +39,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  padding-top: 80px;
 }
 
 /* ── Tarjeta ── */
@@ -43,6 +47,7 @@ body {
   background: var(--color-surface);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  border: 1px solid var(--color-border);
   padding: 2.5rem;
   width: 100%;
   max-width: 480px;
@@ -53,6 +58,10 @@ h2 {
   font-size: 1.6rem;
   font-weight: 700;
   margin-bottom: 0.4rem;
+  color: var(--color-text);
+}
+
+h3 {
   color: var(--color-text);
 }
 
@@ -77,54 +86,66 @@ label {
 }
 
 input, select {
-  padding: 0.7rem 1rem;
+  padding: 0.75rem 1rem;
   border: 1.5px solid var(--color-border);
   border-radius: 8px;
   font-size: 1rem;
-  background: var(--color-bg);
+  background: var(--color-surface-2);
   color: var(--color-text);
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 input:focus, select:focus {
   border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
 }
 
-/* ── Botón ── */
+select option {
+  background: var(--color-surface-2);
+  color: var(--color-text);
+}
+
+/* ── Botones ── */
 .btn {
   width: 100%;
-  padding: 0.8rem;
+  padding: 0.85rem;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
   margin-top: 0.5rem;
 }
 
 .btn-primary {
-  background-color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-primary), #8B5CF6);
   color: white;
+  box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: var(--color-primary-hover);
+  background: linear-gradient(135deg, var(--color-primary-hover), #7C3AED);
+  box-shadow: 0 4px 20px rgba(108, 99, 255, 0.5);
+  transform: translateY(-1px);
 }
 
 .btn-primary:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
+  transform: none;
 }
 
 .btn-secondary {
-  background-color: var(--color-secondary);
-  color: white;
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  border: 1.5px solid var(--color-border);
 }
 
 .btn-secondary:hover {
-  opacity: 0.85;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 /* ── Error ── */
@@ -143,15 +164,20 @@ input:focus, select:focus {
 }
 
 .result-card {
-  background: var(--color-bg);
+  background: var(--color-surface-2);
   border-radius: var(--radius);
   padding: 1.2rem;
   text-align: center;
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
+  transition: border-color 0.2s;
+}
+
+.result-card:hover {
+  border-color: var(--color-primary);
 }
 
 .result-card .value {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
   color: var(--color-primary);
 }
@@ -169,11 +195,11 @@ input:focus, select:focus {
 }
 
 .perfil-info {
-  background: var(--color-bg);
+  background: var(--color-surface-2);
   border-radius: var(--radius);
   padding: 1.2rem;
   margin-bottom: 1.5rem;
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.6rem;
@@ -196,20 +222,23 @@ input:focus, select:focus {
   left: 0;
   right: 0;
   height: 60px;
-  background: var(--color-surface);
-  border-bottom: 1.5px solid var(--color-border);
+  background: rgba(26, 29, 39, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
   z-index: 100;
-  box-shadow: var(--shadow);
 }
 
 .navbar-brand {
   font-weight: 700;
   font-size: 1rem;
-  color: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-primary), #8B5CF6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .navbar-links {
@@ -231,26 +260,147 @@ input:focus, select:focus {
 }
 
 .nav-btn:hover {
-  background: var(--color-bg);
   color: var(--color-text);
+  background: var(--color-surface-2);
 }
 
 .nav-btn.active {
   border-color: var(--color-primary);
   color: var(--color-primary);
-  background: var(--color-bg);
+  background: rgba(108, 99, 255, 0.1);
 }
 
 .nav-btn.logout {
   color: var(--color-error);
-  border-color: var(--color-error);
 }
 
 .nav-btn.logout:hover {
-  background: #fdf0f0;
+  background: rgba(255, 107, 107, 0.1);
+  border-color: var(--color-error);
 }
 
-/* Espacio para que el contenido no quede debajo del navbar */
-.page {
-  padding-top: 80px;
+/* ── Recetas ── */
+.recipes-container {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.recipes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 1.2rem;
+}
+
+.recipe-card {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  padding: 1.8rem;
+  box-shadow: var(--shadow);
+  position: relative;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.recipe-card:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.recipe-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.recipe-card-header h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.recipe-description {
+  font-size: 0.85rem;
+  color: var(--color-text-soft);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.recipe-macros {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.4rem;
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.recipe-macro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.recipe-macro-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.recipe-macro-label {
+  font-size: 0.72rem;
+  color: var(--color-text-soft);
+}
+
+.recipe-delete-btn {
+  background: none;
+  border: none;
+  color: var(--color-text-soft);
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.recipe-delete-btn:hover {
+  color: var(--color-error);
+  background: rgba(255, 107, 107, 0.1);
+}
+
+.recipe-badge {
+  display: inline-block;
+  margin-top: 0.8rem;
+  font-size: 0.72rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  background: rgba(108, 99, 255, 0.1);
+  border: 1px solid rgba(108, 99, 255, 0.3);
+  color: var(--color-primary);
+}
+
+textarea {
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  resize: vertical;
+  font-family: "Segoe UI", sans-serif;
+}
+
+textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
 }

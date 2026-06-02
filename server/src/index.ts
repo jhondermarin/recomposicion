@@ -5,6 +5,7 @@ import userRoutes from "./routes/userRoutes";
 import activityFactorRoutes from "./routes/activityFactorRoutes";
 import profileRoutes from "./routes/profileRoutes"; 
 import calculationRoutes from "./routes/calculationRoutes";
+import recipeRoutes from "./routes/recipeRoutes";
 
 const app = express();
 const PORT = 3000;
@@ -16,6 +17,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/activity-factors", activityFactorRoutes);
 app.use("/api/profiles", profileRoutes);
 app.use("/api/calculation", calculationRoutes);
+app.use("/api/recipes", recipeRoutes);
 app.get("/api/health", (_req, res) => {
   res.json({ ok: true });
 });
