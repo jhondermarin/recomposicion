@@ -8,6 +8,10 @@ function RecipesPage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [activeChat, setActiveChat] = useState<number | null>(null);
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
+  const [chatLoading, setChatLoading] = useState(false);
 
   useEffect(() => {
     const user_id = localStorage.getItem("user_id");
@@ -29,6 +33,40 @@ function RecipesPage() {
     api.delete(`/recipes/${id}?user_id=${user_id}`)
       .then(() => setRecipes(recipes.filter(r => r.id !== id)))
       .catch(() => setError("Error al eliminar la receta"));
+  }
+
+  function toggleChat(id: number) {
+    if (activeChat === id) {
+      setActiveChat(null);
+      setQuestion("");
+      setAnswer("");
+    } else {
+      setActiveChat(id);
+      setQuestion("");
+      setAnswer("");
+    }
+  }
+
+  async function handleAsk(recipe_id: number) {
+    if (!question.trim()) return;
+    const user_id = localStorage.getItem("user_id");
+    if (!user_id) return;
+
+    setChatLoading(true);
+    setAnswer("");
+
+    try {
+      const res = await api.post<{ ok: boolean; data: { answer: string } }>("/chat/recipe", {
+        question,
+        recipe_id,
+        user_id: Number(user_id),
+      });
+      setAnswer(res.data.answer);
+    } catch {
+      setAnswer("Error al consultar la IA. Intenta de nuevo.");
+    } finally {
+      setChatLoading(false);
+    }
   }
 
   if (loading) return <div className="page"><p>Cargando recetas...</p></div>;
@@ -68,9 +106,11 @@ function RecipesPage() {
                   </button>
                 )}
               </div>
+
               {recipe.description && (
                 <p className="recipe-description">{recipe.description}</p>
               )}
+
               <div className="recipe-macros">
                 <div className="recipe-macro">
                   <span className="recipe-macro-value">{recipe.calories}</span>
@@ -95,8 +135,41 @@ function RecipesPage() {
                   <span className="recipe-macro-label">carbos</span>
                 </div>
               </div>
+
               {recipe.user_id === null && (
                 <span className="recipe-badge">Predeterminada</span>
+              )}
+
+              <button
+                className="recipe-chat-btn"
+                onClick={() => toggleChat(recipe.id)}
+              >
+                {activeChat === recipe.id ? "Cerrar asistente" : "Consultar IA"}
+              </button>
+
+              {activeChat === recipe.id && (
+                <div className="recipe-chat">
+                  <textarea
+                    className="recipe-chat-input"
+                    value={question}
+                    onChange={e => setQuestion(e.target.value)}
+                    placeholder="Pregunta algo sobre esta receta..."
+                    rows={2}
+                  />
+                  <button
+                    className="btn btn-primary"
+                    style={{ marginTop: "0.5rem" }}
+                    onClick={() => handleAsk(recipe.id)}
+                    disabled={chatLoading || !question.trim()}
+                  >
+                    {chatLoading ? "Consultando..." : "Preguntar"}
+                  </button>
+                  {answer && (
+                    <div className="recipe-chat-answer">
+                      {answer}
+                    </div>
+                  )}
+                </div>
               )}
             </div>
           ))}
