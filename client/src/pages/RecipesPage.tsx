@@ -24,7 +24,7 @@ function RecipesPage() {
       .then(res => setRecipes(res.data))
       .catch(() => setError("Error al cargar las recetas"))
       .finally(() => setLoading(false));
-  }, []);
+  }, [navigate]);
 
   function handleDelete(id: number) {
     const user_id = localStorage.getItem("user_id");
